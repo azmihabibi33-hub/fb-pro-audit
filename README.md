@@ -1,33 +1,40 @@
 # FB Pro Audit — Gratis
 
-Audit otomatis akun Facebook Pro — **gratis**, cek caption dari engagement
-bait dan lihat metrik interaksi postingan terbaru. Dibuat untuk kreator FB Pro
-yang mau tahu cepat apakah captionnya berisiko kena shadowban, tanpa buka
-Graph API Explorer dan tanpa biaya apa pun.
+Medical check-up buat akun Facebook Pro — **gratis**. Caption kalian dicek
+otomatis: ada kata pemancing engagement (engagement bait) atau hashtag
+kebanyakan, langsung ketahuan. Tidak perlu capek-capek tanya AI satu-satu
+lagi soal kondisi konten kalian.
 
-## Isi repo
+## Dua tool, dua cara pakai
 
-| File | Fungsi |
-| --- | --- |
-| `fb_audit.py` | Audit 5 postingan terbaru: audit caption, jumlah reaksi, jumlah komentar |
-| `caption_check.py` | Cek satu caption saja (tempel teks → langsung verdict) |
-| `reference/fb_audit_graphapi_original.py` | Skrip Graph API asli (referensi — **tidak bisa jalan apa adanya**, lihat di bawah) |
+| Tool | Buat apa | Butuh apa |
+| --- | --- | --- |
+| `caption_check.py` | Cek SATU caption | Python 3 saja — jalan di mana saja |
+| `fb_audit.py` | Audit 5 postingan terbaru (caption + like + komen) | Akun Muse + Facebook terhubung ke Muse |
+
+**Buat kreator lain:** kalau cuma mau cek caption, `caption_check.py` saja
+sudah cukup — download, jalankan, tempel caption. Kalau mau audit lengkap
+(postingan + like + komen otomatis), jalankan lewat Muse dengan Facebook
+yang sudah terhubung.
 
 ## Cara pakai
 
-Butuh Python 3 dan konektor `facebook-cli` (Muse) yang sudah terhubung ke
-akun Facebook. Tidak butuh User Access Token.
+### 1. Cek satu caption (di mana saja, cuma butuh Python 3)
 
 ```bash
-# Audit 5 postingan terbaru
-FB_PROFILE_ID=100000015362821 python3 fb_audit.py
-
-# Audit 10 postingan
-python3 fb_audit.py --profile-id 100000015362821 --limit 10
-
-# Cek satu caption
 python3 caption_check.py "Komen di bawah ya! Jangan lupa follow akun ini!"
 python3 caption_check.py --file caption.txt
+echo "caption..." | python3 caption_check.py
+```
+
+Hasil: daftar peringatan, atau "Aman" kalau bersih.
+Kode keluar 0 = aman, 1 = ada peringatan.
+
+### 2. Audit lengkap (di dalam Muse, Facebook sudah terhubung)
+
+```bash
+FB_PROFILE_ID=ISI_ID_PROFIL_ANDA python3 fb_audit.py
+python3 fb_audit.py --profile-id ISI_ID_PROFIL_ANDA --limit 10
 ```
 
 ## Contoh hasil
